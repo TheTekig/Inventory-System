@@ -65,7 +65,6 @@ def cadastrar_produto(vEstoque):
     caminho_arquivo = os.path.join("Estoque", "estoque.json")
     save(caminho_arquivo, vEstoque)
     print("Produto cadastrado com sucesso")
-    save("estoque.json", vEstoque)
 
 def alterar_dados_produtos(vEstoque,codigo):
     codigo = buscar_produto(vEstoque,codigo)
@@ -81,36 +80,40 @@ def alterar_dados_produtos(vEstoque,codigo):
         print("=" * 30)
 
         opcao = opcoes()
+        match opcao:
+            case "1":
+                vEstoque[codigo]["produto"] = input("Digite o nome do produto: ")
+                print("Nome alterado com sucesso!")
 
-        if opcao == "1":
-            vEstoque[codigo]["produto"] = input("Digite o nome do produto: ")
-            print("Nome alterado com sucesso!")
+            case "2":
+                vEstoque[codigo]["precoVenda"] = validarfloatnumeros()
+                print("Preço de Venda alterado com sucesso!")
 
-        if opcao == "2":
-            vEstoque[codigo]["precoVenda"] = validarfloatnumeros()
-            print("Preço de Venda alterado com sucesso!")
+            case "3":
+                vEstoque[codigo]["precoCompra"] = validarfloatnumeros()
+                print("Preço de Compra alterado com sucesso!")
 
-        if opcao == "3":
-            vEstoque[codigo]["precoCompra"] = validarfloatnumeros()
-            print("Preço de Compra alterado com sucesso!")
+            case "4":
+                vEstoque[codigo]["qtd_estoque"] = validarintnumeros()
+                print("Quantidade em Estoque alterado com sucesso!")
 
-        if opcao == "4":
-            vEstoque[codigo]["qtd_estoque"] = validarintnumeros()
-            print("Quantidade em Estoque alterado com sucesso!")
+            case "5":
+                vEstoque[codigo]["fornecedor"] = input("Digite o nome do fornecedor: ")
+                print("Fornecedor alterado com sucesso!")
 
-        if opcao == "5":
-            vEstoque[codigo]["fornecedor"] = input("Digite o nome do fornecedor: ")
-            print("Fornecedor alterado com sucesso!")
+            case "6":
+                vEstoque[codigo]["data_validade"] = validadordata()
+                print("Data de Validade alterado com sucesso!")
 
-        if opcao == "6":
-            vEstoque[codigo]["data_validade"] = validadordata()
-            print("Data de Validade alterado com sucesso!")
+            case "7":
+                vEstoque[codigo]["data_entrada"] = validadordata()
+                print("Data de Entrada alterado com sucesso!")
+            
+            case _:
+                print("Opção inválida")
+                sleep(1)
 
-        if opcao == "7":
-            vEstoque[codigo]["data_entrada"] = validadordata()
-            print("Data de Entrada alterado com sucesso!")
-
-        save("estoque.json", vEstoque)
+        save("Estoque/estoque.json", vEstoque)
         sleep(1)
 
 def remover_produto(vEstoque,codigo):
@@ -122,7 +125,7 @@ def remover_produto(vEstoque,codigo):
         print("Produto encontrado.")
         del vEstoque[chave]
         print("Produto removido com sucesso!")
-        save("estoque.json", vEstoque)
+        save("Estoque/estoque.json", vEstoque)
         sleep(1)
 
 def buscar_produto(vEstoque,codigo):
@@ -245,7 +248,7 @@ def comprar_produto(vEstoque, vEmpresa, codigo):
 
                 else:
                     vEstoque[chave]['qtd_estoque'] += quantidade
-                    vEmpresa["caixa"] -= valortotal
+                    vEmpresa['caixa'] -= valortotal
 
                     nota_fiscal(vEstoque[chave], quantidade, "compra")
 
@@ -263,6 +266,7 @@ def vender_produto(vEstoque, vEmpresa, codigo):
 
     else:
         print("Produto encontrado.")
+        print("Quantos deseja comprar?", end="")
         quantidade = validarintnumeros()
 
         if quantidade <= 0:
@@ -283,7 +287,7 @@ def vender_produto(vEstoque, vEmpresa, codigo):
             nota_fiscal(vEstoque[chave], quantidade, "venda")
 
             print("Produto vendido com sucesso!")
-            save("estoque.json", vEstoque)
+            save("Estoque/estoque.json", vEstoque)
             sleep(1)
 
 def nota_fiscal(a , b, c):
@@ -404,7 +408,7 @@ def menu():
 
 def opcoes():
     opcao = input("Escolha uma opção: ")
-    while opcao not in ["1","2","3","4","5","6","7"]: opcao = input("Opção Invalida\nEscolha uma opção: ")
+    while opcao not in ["1","2","3","4","5","6","7","8"]: opcao = input("Opção Invalida\nEscolha uma opção: ")
     return opcao
 
 def opcoes_sn():
@@ -416,6 +420,7 @@ def opcoes_sn():
 
 def main():
     #region    /Variaveis Iniciais/
+
     os.makedirs("Estoque", exist_ok=True)
     os.makedirs("Empresa", exist_ok=True)
     os.makedirs("Relatorios_Estoque", exist_ok=True)
@@ -423,10 +428,16 @@ def main():
     os.makedirs("Empresa/Notas_Fiscais_compras", exist_ok=True)
     os.makedirs("Empresa/Relatorios_Caixa", exist_ok=True)
     os.makedirs("Relatorios_Caixa", exist_ok=True)
+
     vEstoque = load("estoque.json")
+
     if not os.path.exists("empresa.json"):
         empresa(vEstoque)
+
     vEmpresa = load("empresa.json")
+    vEmpresa.setdefault("caixa", 0)
+    vEmpresa.setdefault("vendastotais", 0)
+    vEmpresa.setdefault("variedadeprodutos", 0)
 
 
     #endregion
@@ -435,61 +446,67 @@ def main():
         menu()
         opcao = opcoes()
 
-        if opcao == "1":
-            print("=" * 30)
-            print("  Cadastro de Produto")
-            print("=" * 30)
-            cadastrar_produto(vEstoque)
-            print("=" * 30)
+        match opcao:
 
-        if opcao == "2":
-            print("=" * 30)
-            print("\tProdutos")
-            print("=" * 30)
-            listar_produtos_venda(vEstoque)
-            print("=" * 30)
+            case "1":
+                print("=" * 30)
+                print("  Cadastro de Produto")
+                print("=" * 30)
+                cadastrar_produto(vEstoque)
+                print("=" * 30)
 
-        if opcao == "3":
-            print("=" * 30)
-            print("   Venda de Produtos")
-            print("=" * 30)
-            codigo = validarintnumeros()
-            vender_produto(vEstoque, vEmpresa, codigo)
+            case "2":
+                print("=" * 30)
+                print("\tProdutos")
+                print("=" * 30)
+                listar_produtos_venda(vEstoque)
+                print("=" * 30)
 
-        if opcao == "4":
-            print("=" * 30)
-            print("   Relatório de Vendas")
-            print("=" * 30)
-            gerar_relatorio(vEstoque, vEmpresa)
-            print("=" * 30)
+            case "3":
+                print("=" * 30)
+                print("   Venda de Produtos")
+                print("=" * 30)
+                codigo = validarintnumeros()
+                vender_produto(vEstoque, vEmpresa, codigo)
 
-        if opcao == "5":
-            print("=" * 30)
-            print(" Estoque")
-            print("=" * 30)
-            imprimir_estoque(vEstoque)
-            print("=" * 30)
+            case "4":
+                print("=" * 30)
+                print("   Relatório de Vendas")
+                print("=" * 30)
+                gerar_relatorio(vEstoque, vEmpresa)
+                print("=" * 30)
 
-        if opcao == "6":
-            print("=" * 30)
-            print(" Alterar Dados do Produto")
-            print("=" * 30)
-            codigo = validarintnumeros()
-            alterar_dados_produtos(vEstoque,codigo)
-            print("=" * 30)
+            case "5":
+                print("=" * 30)
+                print(" Estoque")
+                print("=" * 30)
+                imprimir_estoque(vEstoque)
+                print("=" * 30)
 
-        if opcao == "7":
-            print("=" * 30)
-            print("   Remover Produto")
-            print("=" * 30)
-            codigo = validarintnumeros()
-            remover_produto(vEstoque,codigo)
-            print("=" * 30)
+            case "6":
+                print("=" * 30)
+                print(" Alterar Dados do Produto")
+                print("=" * 30)
+                codigo = validarintnumeros()
+                alterar_dados_produtos(vEstoque,codigo)
+                print("=" * 30)
 
-        if opcao == "8":
-            print("Saindo do programa...")
-            sleep(1)
-            break
+            case "7":
+                print("=" * 30)
+                print("   Remover Produto")
+                print("=" * 30)
+                codigo = validarintnumeros()
+                remover_produto(vEstoque,codigo)
+                print("=" * 30)
+
+            case "8":
+                print("Saindo do programa...")
+                sleep(1)
+                break
+                
+            case _:
+                print("Opção inválida")
+                sleep(1)
 
 main()
 
