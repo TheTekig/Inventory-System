@@ -1,66 +1,94 @@
-# Sistema de Gerenciamento de Estoque 📦
+<h1 align="center">Inventory-System 🛒</h1>
 
-***Este é um sistema simples de gerenciamento de estoque e ponto de venda (PDV) desenvolvido em Python. O programa roda inteiramente no terminal e permite ao usuário realizar as operações essenciais de controle de um pequeno negócio, como cadastrar produtos, realizar vendas, controlar o caixa e gerar relatórios.***
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white" alt="Python Badge">
+  <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow">
+</p>
 
-**Todos os dados são salvos localmente em arquivos .json e .txt, garantindo que as informações persistam mesmo após o programa ser fechado.**
+---
 
-## ✨ Funcionalidades Principais
+<h2 align="center">About 📖</h2>
 
-    Gestão de Produtos: Cadastro, alteração e remoção de produtos no inventário.
-    
-    Controle de Estoque: Atualização automática da quantidade de produtos após compras e vendas.
-    
-    Módulo de Vendas: Função para vender produtos, atualizando o estoque e o saldo do caixa.
-    
-    Módulo de Compras: Função para registrar a compra de novos itens de fornecedores, atualizando o estoque e debitando do caixa.
-    
-    Geração de Relatórios: Criação de relatórios de vendas e de situação do estoque em arquivos de texto (.txt).
-    
-    Emissão de Notas: Geração automática de "notas fiscais" simplificadas para cada transação de compra ou venda.
-    
-    Persistência de Dados: Uso de arquivos JSON para salvar o estado do estoque e da empresa, permitindo continuar de onde parou.
-    
-    Interface de Linha de Comando (CLI): Interação com o usuário através de um menu simples e intuitivo no terminal.
+<p align="center">
+<strong>Inventory-System</strong> é um sistema de gestão de estoque e vendas em <strong>Python</strong>.<br>
+Permite cadastrar produtos, controlar estoque, realizar vendas, gerar relatórios e emitir notas fiscais em arquivos de texto.<br>
+Ideal para praticar <strong>manipulação de arquivos JSON</strong>, validações de dados e lógica de sistemas comerciais no terminal.
+</p>
 
-## 🚀 Como Executar
+---
 
-*Requisitos: Certifique-se de ter o Python 3 instalado em sua máquina. Nenhuma biblioteca externa é necessária.*
+<h2 align="center">Features ✨</h2>
 
-*Download: Clone ou baixe os arquivos do projeto para o seu computador.*
+<ul>
+  <li>Cadastro de produtos com código automático e validação de dados.</li>
+  <li>Controle de estoque: baixa, reposição e alertas de estoque baixo.</li>
+  <li>Venda de produtos com atualização do caixa e histórico de vendas.</li>
+  <li>Emissão de notas fiscais para compras e vendas.</li>
+  <li>Geração de relatórios de vendas e estoque em <code>.txt</code>.</li>
+  <li>Validações de números e datas, garantindo segurança nas operações.</li>
+  <li>Menu de terminal simples e intuitivo.</li>
+</ul>
 
-*Execução: Abra um terminal ou prompt de comando, navegue até a pasta onde o arquivo do projeto está salvo e execute o seguinte comando:*
+---
 
-**python main.py**
+<h2 align="center">Tecnologias e Bibliotecas 🔧</h2>
 
+<p align="center">
+Python 3.x<br>
+Bibliotecas nativas: <code>json</code>, <code>os</code>, <code>datetime</code>, <code>random</code>, <code>time</code>
+</p>
 
-## 📂 Estrutura de Arquivos e Pastas
-*Ao ser executado, o script cria automaticamente uma estrutura de pastas e arquivos para organizar os dados gerados:*
-    
-    estoque.json: Arquivo principal que armazena o inventário completo, com todos os detalhes de cada produto.
-    
-    empresa.json: Armazena os dados financeiros da empresa, como o saldo atual do caixa e o total de vendas.
-    
-    📁 Relatorios_Estoque/
-    
-    Contém os relatórios detalhados de todo o inventário, gerados pela opção "Imprimir Estoque".
-    
-    📁 Empresa/
-    
-    📁 Notas_Fiscais_vendas/: Guarda as notas fiscais em .txt de cada venda realizada.
-    
-    📁 Notas_Fiscais_compras/: Guarda as notas fiscais em .txt de cada compra de reposição de estoque.
-    
-    📁 Relatorios_Caixa/: Contém os relatórios financeiros, com detalhes sobre as vendas e o caixa.
+---
 
-## 🛠️ Detalhes das Funções do Menu
-*O sistema é operado através de um menu principal com as seguintes opções:*
+<h2 align="center">Usage 💻</h2>
 
-    Opção	Descrição
-    1	Cadastrar Produto
-    2	Listar Produtos
-    3	Vender Produto
-    4	Gerar Relatório
-    5	Imprimir Estoque
-    6	Alterar Dados do Produto
-    7	Remover Produto
-    8	Sair
+<pre>
+1️⃣ Clone o repositório:
+   git clone https://github.com/seu-usuario/Inventory-System.git
+
+2️⃣ Entre na pasta do projeto:
+   cd Inventory-System
+
+3️⃣ Execute o programa:
+   python main.py
+
+4️⃣ Navegue pelo menu para:
+   - Cadastrar produtos
+   - Vender produtos
+   - Gerar relatórios
+   - Imprimir o estoque
+   - Alterar ou remover produtos
+</pre>
+
+---
+
+<h2 align="center">Estrutura do Projeto 📂</h2>
+
+<pre>
+Inventory-System/
+│
+├─ Estoque/                    # Arquivos JSON de produtos
+├─ Empresa/                    # Dados do caixa e notas fiscais
+├─ Relatorios_Estoque/         # Relatórios de estoque em TXT
+├─ Empresa/Relatorios_Caixa/   # Relatórios de vendas em TXT
+├─ Empresa/Notas_Fiscais_vendas/
+├─ Empresa/Notas_Fiscais_compras/
+└─ main.py                     # Arquivo principal do sistema
+</pre>
+
+---
+
+<h2 align="center">License 📝</h2>
+
+<p align="center">
+MIT License – Sinta-se à vontade para usar, modificar e distribuir.
+</p>
+
+---
+
+<h2 align="center">Author 👨‍💻</h2>
+
+<p align="center">
+Diogo Teodoro Dias Lamas<br>
+<a href="https://github.com/TheTekig">GitHub</a>
+</p>
