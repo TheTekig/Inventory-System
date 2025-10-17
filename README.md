@@ -78,14 +78,6 @@ Inventory-System/
 
 ---
 
-<h2 align="center">License 📝</h2>
-
-<p align="center">
-MIT License – Sinta-se à vontade para usar, modificar e distribuir.
-</p>
-
----
-
 <h2 align="center">Author 👨‍💻</h2>
 
 <p align="center">
